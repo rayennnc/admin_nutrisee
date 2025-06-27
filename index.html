@@ -19,11 +19,52 @@
     <input type="number" id="lemak" placeholder="Contoh: 5" />
     <label for="karbohidrat">Karbohidrat</label>
     <input type="number" id="karbohidrat" placeholder="Contoh: 22" />
+  <label for="kategori">Kategori</label>
+  <select id="kategori">
+    <option value="">Pilih Kategori</option>
+    <option value="Serealia">Serealia</option>
+    <option value="Umbi">Umbi</option>
+    <option value="Kacang, Biji, Bean">Kacang, Biji, Bean</option>
+    <option value="Sayuran">Sayuran</option>
+    <option value="Buah">Buah</option>
+    <option value="Daging, Unggas">Daging, Unggas</option>
+    <option value="Ikan, Kerang, Udang">Ikan, Kerang, Udang</option>
+    <option value="Telur">Telur</option>
+    <option value="Susu">Susu</option>
+    <option value="Lemak, Minyak">Lemak, Minyak</option>
+    <option value="Gula, Sirup, dan Konfeksioneri">Gula, Sirup, Konfeksioneri</option>
+    <option value="Bumbu">Bumbu</option>
+    <option value="Minuman">Minuman</option>
+    <!-- Tambahkan kategori lain sesuai kebutuhan -->
+  </select>
   <button onclick="tambahMakanan()">Tambah</button>
   <h3>Daftar Makanan</h3>
+  <label for="filterKategori">Filter Kategori:</label>
+<select id="filterKategori">
+  <option value="">Semua</option>
+  <option value="Serealia">Serealia</option>
+  <option value="Umbi">Umbi</option>
+  <option value="Kacang, Biji, Bean">Kacang, Biji, Bean</option>
+    <option value="Sayuran">Sayuran</option>
+    <option value="Buah">Buah</option>
+    <option value="Daging, Unggas">Daging, Unggas</option>
+    <option value="Ikan, Kerang, Udang">Ikan, Kerang, Udang</option>
+    <option value="Telur">Telur</option>
+    <option value="Susu">Susu</option>
+    <option value="Lemak, Minyak">Lemak, Minyak</option>
+    <option value="Gula, Sirup, dan Konfeksioneri">Gula, Sirup, Konfeksioneri</option>
+    <option value="Bumbu">Bumbu</option>
+    <option value="Minuman">Minuman</option>
+</select>
   <table>
     <thead>
-      <tr><th>Nama</th><th>Kalori</th><th>Protein</th><th>Lemak</th><th>Karbohidrat</th><th>Aksi</th></th></tr>
+      <tr><th>Nama</th>
+        <th>Kategori</th>
+        <th>Kalori</th>
+        <th>Protein</th>
+        <th>Lemak</th>
+        <th>Karbohidrat</th>
+        <th>Aksi</th></tr>
     </thead>
     <tbody id="daftar"></tbody>
   </table>

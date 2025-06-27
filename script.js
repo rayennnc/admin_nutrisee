@@ -21,17 +21,18 @@ window.tambahMakanan = async function () {
   const protein = parseFloat(document.getElementById("protein").value);
   const lemak = parseFloat(document.getElementById("lemak").value);
   const karbohidrat = parseFloat(document.getElementById("karbohidrat").value);
+  const kategori = document.getElementById("kategori").value;
   if (!nama || isNaN(kalori)) return alert("Isi semua kolom");
 
   if (editId) {
     // Edit mode
-    await updateDoc(doc(db, "makanan", editId), { nama, kalori, protein, lemak, karbohidrat });
+    await updateDoc(doc(db, "makanan", editId), { nama, kalori, protein, lemak, karbohidrat, kategori });
     alert("Data makanan diperbarui!");
     editId = null;
     document.querySelector("button[onclick='tambahMakanan()']").textContent = "Tambah";
   } else {
     // Tambah mode
-    await addDoc(collection(db, "makanan"), { nama, kalori, protein, lemak, karbohidrat });
+    await addDoc(collection(db, "makanan"), { nama, kalori, protein, lemak, karbohidrat, kategori });
     alert("Makanan ditambahkan!");
   }
   tampilkanMakanan();
@@ -42,23 +43,31 @@ window.tambahMakanan = async function () {
   document.getElementById("karbohidrat").value = "";
 };
 
+document.getElementById("filterKategori").addEventListener("change", tampilkanMakanan);
+
 async function tampilkanMakanan() {
+  const filter = document.getElementById("filterKategori").value;
   const daftar = document.getElementById("daftar");
   daftar.innerHTML = "";
   const querySnapshot = await getDocs(collection(db, "makanan"));
   querySnapshot.forEach((docSnap) => {
     const data = docSnap.data();
-    daftar.innerHTML += `<tr>
-      <td>${data.nama}</td>
-      <td>${data.kalori} kcal</td>
-      <td>${data.protein} g</td>
-      <td>${data.lemak} g</td>
-      <td>${data.karbohidrat} g</td>
-      <td>
-        <button onclick="editMakanan('${docSnap.id}')">Edit</button>
-        <button onclick="hapusMakanan('${docSnap.id}')">Hapus</button>
-      </td>
-    </tr>`;
+    // filter data sebelum ditampilkan:
+    if (!filter || data.kategori === filter) {
+      // tampilkan baris
+      daftar.innerHTML += `<tr>
+        <td>${data.nama}</td>
+        <td>${data.kategori || '-'}</td>
+        <td>${data.kalori} kcal</td>
+        <td>${data.protein} g</td>
+        <td>${data.lemak} g</td>
+        <td>${data.karbohidrat} g</td>
+        <td>
+          <button onclick="editMakanan('${docSnap.id}')">Edit</button>
+          <button onclick="hapusMakanan('${docSnap.id}')">Hapus</button>
+        </td>
+      </tr>`;
+    }
   });
 }
 
